@@ -1,0 +1,22 @@
+<h2 mat-dialog-title style="margin-bottom: 50px">{{'Update contact'}}</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="John" [(ngModel)]="contact.name">
+    <mat-icon matSuffix color="primary">person</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Phone</mat-label>
+    <input matInput placeholder="+7(777) 777-77-77" [textMask]="{mask: phoneMask}" #phone [(ngModel)]="contact.phone">
+    <mat-icon matSuffix color="primary">call</mat-icon>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" (click)="onClick(contact)">Save</button>
+</mat-dialog-actions>
