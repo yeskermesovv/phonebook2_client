@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
 import {Observable} from "rxjs";
 import {Contact} from "../model/contact";
+import {PageEvent} from "@angular/material/paginator";
 
 
 @Injectable()
@@ -13,8 +14,10 @@ export class ContactService {
     this.contactsUrl = 'http://localhost:8080/contacts';
   }
 
-  public findAll(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(this.contactsUrl);
+  public findAll(request: any): Observable<PageEvent> {
+    let page = request['page'];
+    let size = request['size'];
+    return this.http.get<PageEvent>(this.contactsUrl + '?' + 'page=' + page + '&size=' + size);
   }
 
   public save(contact: Contact) {

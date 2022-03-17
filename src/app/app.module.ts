@@ -16,6 +16,7 @@ import {DialogUpdateConfirmationComponent} from "./dialog-update-confirmation-co
 import {MatInputModule} from "@angular/material/input";
 import { TextMaskModule } from 'angular2-text-mask';
 import {AuthModule} from "./auth/auth.module";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {AuthModule} from "./auth/auth.module";
     MatButtonModule,
     MatInputModule,
     TextMaskModule,
-    AuthModule
+    AuthModule,
+    MatPaginatorModule
   ],
   providers: [ContactService],
   bootstrap: [AppComponent]

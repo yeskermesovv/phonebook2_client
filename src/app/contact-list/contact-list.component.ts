@@ -4,6 +4,7 @@ import {ContactService} from "../service/contact.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogConfirmationComponent} from "../dialog-confirmation/dialog-confirmation.component";
 import {DialogUpdateConfirmationComponent} from "../dialog-update-confirmation-component/dialog-update-confirmation.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-contact-list',
@@ -14,14 +15,19 @@ export class ContactListComponent implements OnInit {
 
   contacts: Contact[] = [];
   isDeleted = false;
+  totalElements = 0;
 
   constructor(private contactService: ContactService,
               public dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.contactService.findAll().subscribe(data => {
-      this.contacts = data;
+    const request = {};
+    request['page'] = 0;
+    request['size'] = 5;
+    this.contactService.findAll(request).subscribe(data => {
+      this.contacts = data['content'];
+      this.totalElements = data['totalElements'];
     });
   }
 
@@ -42,6 +48,16 @@ export class ContactListComponent implements OnInit {
       data: {
         contact: contact
       }
+    });
+  }
+
+  nextPage(event: PageEvent) {
+    const request = {};
+    request['page'] = event.pageIndex.toString();
+    request['size'] = event.pageSize.toString();
+    this.contactService.findAll(request).subscribe(data => {
+      this.contacts = data['content'];
+      this.totalElements = data['totalElements'];
     });
   }
 }
